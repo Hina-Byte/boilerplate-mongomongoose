@@ -87,9 +87,9 @@ const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
 
   Person.findOneAndUpdate(
-    { name: personName },
-    { age: ageToSet },
-    { new: true }, 
+    { name: personName },   // 1️⃣ Filtro por nombre
+    { age: ageToSet },      // 2️⃣ Actualizar edad
+    { new: true },          // 3️⃣ Retornar el documento actualizado
     (err, updatedDoc) => {
       if (err) return done(err);
       done(null, updatedDoc);
