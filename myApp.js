@@ -119,9 +119,9 @@ const queryChain = (done) => {
   const foodToSearch = "burrito";
 
   Person.find({ favoriteFoods: foodToSearch })
-    .sort({ name: 1 })      // Orden alfabético ascendente
-    .limit(2)               // Limitar a 2 resultados
-    .select('-age')         // Excluir campo age
+    .sort({ name: 1 })      // ordenar por nombre ascendente
+    .limit(2)               // limitar a 2 resultados
+    .select('-age')         // excluir el campo age
     .exec((err, data) => {
       if (err) return done(err);
       done(null, data);
