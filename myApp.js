@@ -7,8 +7,6 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true 
 });
 
-let Person;
-
 // 1️⃣ Crear Schema y Model
 const personSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -16,7 +14,7 @@ const personSchema = new mongoose.Schema({
   favoriteFoods: [String]
 });
 
-Person = mongoose.model('Person', personSchema);
+const Person = mongoose.model('Person', personSchema);
 
 // 2️⃣ Funciones CRUD
 
@@ -91,7 +89,7 @@ const findAndUpdate = (personName, done) => {
   );
 };
 
-
+// DELETE
 const removeById = (personId, done) => {
   Person.findByIdAndRemove(personId, (err, removedDoc) => {
     if (err) return done(err);
@@ -108,23 +106,21 @@ const removeManyPeople = (done) => {
   });
 };
 
-
+// QUERY CHAIN
 const queryChain = (done) => {
   const foodToSearch = "burrito";
 
   Person.find({ favoriteFoods: foodToSearch })
-    .sort({ name: 1 })      
-    .limit(2)               
-    .select('-age')         
+    .sort({ name: 1 })      // Orden alfabético ascendente
+    .limit(2)               // Limitar a 2 resultados
+    .select('-age')         // Excluir campo age
     .exec((err, data) => {
       if (err) return done(err);
       done(null, data);
     });
 };
 
-
 //----- **DO NOT EDIT BELOW THIS LINE** ----------------------------------
-
 exports.PersonModel = Person;
 exports.createAndSavePerson = createAndSavePerson;
 exports.findPeopleByName = findPeopleByName;
