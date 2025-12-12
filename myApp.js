@@ -32,12 +32,14 @@ const createAndSavePerson = (done) => {
   });
 };
 
+// CREATE MANY RECORDS
 const createManyPeople = (arrayOfPeople, done) => {
-  Person.create(arrayOfPeople, (err, data) => {
+  Person.create(arrayOfPeople, (err, people) => {
     if (err) return done(err);
-    done(null, data);
+    done(null, people);
   });
 };
+
 
 // READ
 const findPeopleByName = (personName, done) => {
